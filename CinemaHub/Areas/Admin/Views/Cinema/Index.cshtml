@@ -1,0 +1,118 @@
+﻿
+@model IEnumerable<CinemaHub.Models.Entities.Cinema>
+
+@{
+    ViewData["Title"] = "Cinemas";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Cinemas</h1>
+
+    <a asp-action="Create" class="btn btn-primary">
+        Add Cinema
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <h5>No actors found</h5>
+
+                <p class="text-muted">
+                    Start by adding your first actor.
+                </p>
+
+                <a asp-action="Create" class="btn btn-primary">
+                    Add Actor
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Movie Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var cinema in Model)
+                        {
+                            <tr>
+                                <td>@cinema.Id</td>
+
+                                <td>
+                                    <strong>@cinema.Name</strong>
+                                </td>
+
+                                <td>
+                                    @if (!string.IsNullOrEmpty(cinema.ImageUrl))
+                                    {
+                                        <img src="@cinema.ImageUrl"
+                                             alt="@cinema.Name"
+                                             class="rounded"
+                                             style="width:70px; height:80px; object-fit:cover;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">
+                                            No Image
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @cinema.Movies.Count()
+                                </td>
+
+                               
+
+                                <td class="text-end">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@cinema.Id"
+                                       class="btn btn-sm btn-info">
+                                        Details
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@cinema.Id"
+                                       class="btn btn-sm btn-warning">
+                                        Edit
+                                    </a>
+
+                                    <form asp-action="Delete"
+                                          asp-route-id="@cinema.Id"
+                                          method="post"
+                                          style="display:inline;"
+                                          onsubmit="return confirm('Are you sure you want to delete this Cinema?');">
+
+                                        <button type="submit"
+                                                class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+```

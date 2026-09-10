@@ -1,0 +1,106 @@
+﻿@model IEnumerable<CinemaHub.Models.Entities.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Movies</h1>
+
+    <a asp-action="Create" class="btn btn-primary">
+        Add Movie
+    </a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <h5>No movies found</h5>
+
+                <p class="text-muted">
+                    Start by adding your first movie.
+                </p>
+
+                <a asp-action="Create" class="btn btn-primary">
+                    Add Movie
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Movie Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Cinema</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var movie in Model)
+                        {
+                            <tr>
+                                <td>@movie.Id</td>
+
+                                <td>
+                                    <strong>@movie.Name</strong>
+                                </td>
+
+                                <td>
+                                    @movie.Description
+                                </td>
+
+                                <td>
+                                    @movie.Price
+                                </td>
+
+                                <td>
+                                    @movie.Category?.Name
+                                </td>
+
+                                <td>
+                                    @movie.Cinema?.Name
+                                </td>
+
+                                <td class="text-end">
+
+                                    <a asp-action="Details"
+                                       asp-route-id="@movie.Id"
+                                       class="btn btn-sm btn-info">
+                                        Details
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@movie.Id"
+                                       class="btn btn-sm btn-warning">
+                                        Edit
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@movie.Id"
+                                       class="btn btn-sm btn-danger">
+                                        Delete
+                                    </a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        }
+
+    </div>
+</div>
+```
