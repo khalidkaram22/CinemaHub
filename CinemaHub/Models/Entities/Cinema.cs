@@ -9,6 +9,6 @@
         public string? ImageUrl { get; set; }
 
         // Navigation Property
-       public ICollection<Movie> Movies { get; set; } = new List<Movie>();
+        public ICollection<Movie> Movies { get; set; } = new List<Movie>();
     }
 }
